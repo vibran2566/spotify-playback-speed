@@ -1,0 +1,13 @@
+.runtime/
+build/
+node_modules/
+__pycache__/
+*.exe
+*.dll
+*.whl
+*.wav
+*.log
+*-results.json
+speed-control-preview.png
+.env
+.env.*
