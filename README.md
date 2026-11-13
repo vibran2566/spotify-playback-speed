@@ -13,7 +13,7 @@ Speed and pitch control for the Spotify Windows desktop app, as a single [Windha
 </div>
 
 > [!WARNING]
-> Experimental. The progress bar and synced lyrics don't follow the changed speed yet.
+> Experimental. Some Spotify features may break.
 
 ## Install
 
@@ -49,6 +49,7 @@ Paste one file into Windhawk, which compiles it.
 
 ## Known limits
 
+- The progress bar and synced lyrics don't follow the changed speed yet. 
 - Spotify updates may move the Lyrics button or change the audio engine.
 - The audio buffer is raised to 250 ms, which adds a little latency.
 
