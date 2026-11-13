@@ -1,4 +1,7 @@
 .runtime/
+runtime/
+installation.json
+.installing
 build/
 node_modules/
 __pycache__/
