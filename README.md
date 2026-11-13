@@ -29,11 +29,14 @@ Start playback, then click the speed button just left of **Lyrics**.
 
 <details>
 <summary>Spotify or Windhawk installed somewhere custom?</summary>
+<br>
 
 Run setup from PowerShell with explicit paths:
 
 ```powershell
-.\Install-Spotify-Speed.ps1 -SpotifyPath 'D:\Apps\Spotify\Spotify.exe' -WindhawkCli 'D:\Apps\Windhawk\windhawk-cli.exe'
+.\Install-Spotify-Speed.ps1 `
+  -SpotifyPath 'D:\Apps\Spotify\Spotify.exe' `
+  -WindhawkCli 'D:\Apps\Windhawk\windhawk-cli.exe'
 ```
 
 </details>
@@ -59,38 +62,55 @@ To turn it off temporarily, disable **Spotify Audio Speed** in Windhawk.
 
 <details>
 <summary><b>No speed button</b></summary>
+<br>
 
 Open Spotify with the **Spotify Speed** shortcut. If startup fails, read its error message. Logs are in `%LOCALAPPDATA%\Programs\Spotify Audio Speed\.runtime`. A Spotify UI update may also have moved the Lyrics button.
+
 </details>
+<br>
 
 <details>
 <summary><b>Speed control unavailable</b></summary>
+<br>
 
 Check that Windhawk and the mod are enabled, then fully close Spotify and reopen it with the shortcut. The mod has to load before Spotify creates its audio stream.
+
 </details>
+<br>
 
 <details>
 <summary><b>Port 9222 belongs to another debugger</b></summary>
+<br>
 
 Close that debugger before launching. The script won't take over another debugger session.
+
 </details>
+<br>
 
 <details>
 <summary><b>Crackling audio</b></summary>
+<br>
 
 Go back to 1x and open an issue with your Spotify version, Windows version, audio device, and the rates that crackle. The larger buffer fixed this on the test machine, but it may not on every device.
+
 </details>
+<br>
 
 <details>
 <summary><b>Setup can't find Windhawk development tools</b></summary>
+<br>
 
 Add **Development tools** in Windhawk, then run Setup again.
+
 </details>
+<br>
 
 <details>
 <summary><b>Setup can't download dependencies</b></summary>
+<br>
 
 Check your internet connection. Or install Windhawk 2 with Development tools and Node.js 22+ yourself, then run Setup again.
+
 </details>
 
 ## Credits & license
