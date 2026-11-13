@@ -5,3 +5,5 @@
 *.js text eol=lf
 *.mjs text eol=lf
 *.md text eol=lf
+.gitattributes export-ignore
+.gitignore     export-ignore

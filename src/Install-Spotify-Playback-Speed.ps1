@@ -6,7 +6,10 @@ param(
 )
 $ErrorActionPreference='Stop'
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
-$files=@('Start-Spotify-Playback-Speed.ps1','keep-speed-control.mjs','speed-control.js','spotify-playback-speed.wh.cpp','Uninstall-Spotify-Playback-Speed.ps1','Windhawk-Operations.ps1','LICENSE','README.md')
+$files=@('Start-Spotify-Playback-Speed.ps1','keep-speed-control.mjs','speed-control.js','spotify-playback-speed.wh.cpp','Uninstall-Spotify-Playback-Speed.ps1','Windhawk-Operations.ps1')
+$sourceFiles=@($files | ForEach-Object { Join-Path $PSScriptRoot $_ })
+$packageRoot=Split-Path -Parent $PSScriptRoot
+$sourceFiles+=@((Join-Path $packageRoot 'LICENSE'),(Join-Path $packageRoot 'README.md'))
 # Upgrade older installs in place so their portable runtime and custom files stay intact.
 if(-not $PSBoundParameters.ContainsKey('InstallDir') -and -not (Test-Path -LiteralPath $InstallDir)) {
     $legacyRoot=Join-Path $env:LOCALAPPDATA 'Programs\Spotify Audio Speed'
@@ -36,7 +39,7 @@ try {
     if([Environment]::OSVersion.Platform -ne 'Win32NT' -or -not [Environment]::Is64BitOperatingSystem -or $env:PROCESSOR_ARCHITECTURE -eq 'ARM64' -or $env:PROCESSOR_ARCHITEW6432 -eq 'ARM64') {
         throw 'This version requires Windows x64.'
     }
-    foreach($file in $files) { if(-not (Test-Path -LiteralPath (Join-Path $PSScriptRoot $file) -PathType Leaf)) { throw "Missing $file. Extract the entire ZIP before running Setup." } }
+    foreach($file in $sourceFiles) { if(-not (Test-Path -LiteralPath $file -PathType Leaf)) { throw "Missing $(Split-Path -Leaf $file). Extract the entire ZIP before running Setup." } }
     if(-not $SpotifyPath) {
         $SpotifyPath=@("$env:APPDATA\Spotify\Spotify.exe","$env:LOCALAPPDATA\Microsoft\WindowsApps\Spotify.exe") | Where-Object { Test-Path -LiteralPath $_ -PathType Leaf } | Select-Object -First 1
     }
@@ -110,8 +113,8 @@ try {
     $installedHelper=Join-Path $InstallDir 'keep-speed-control.mjs'
     Get-CimInstance Win32_Process -Filter "name='node.exe'" | Where-Object { $_.CommandLine -and $_.CommandLine.Contains($installedHelper) } | ForEach-Object { Stop-Process -Id $_.ProcessId }
     New-Item -ItemType Directory -Force -Path $InstallDir | Out-Null
-    foreach($file in $files) {
-        $from=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot $file));$to=[IO.Path]::GetFullPath((Join-Path $InstallDir $file))
+    foreach($file in $sourceFiles) {
+        $from=[IO.Path]::GetFullPath($file);$to=[IO.Path]::GetFullPath((Join-Path $InstallDir (Split-Path -Leaf $file)))
         if($from -ne $to) { Copy-Item -LiteralPath $from -Destination $to -Force }
     }
     . (Join-Path $InstallDir 'Windhawk-Operations.ps1')

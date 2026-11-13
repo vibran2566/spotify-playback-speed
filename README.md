@@ -8,7 +8,7 @@ Speed and pitch control for the Spotify Windows desktop app.
 
 **0.50x – 2.00x** · one-click **1x** reset · sits next to the Lyrics button
 
-[**Download ZIP**](https://github.com/vibran2566/spotify-playback-speed/archive/refs/heads/main.zip) · [Known limits](#known-limits) · [Troubleshooting](#troubleshooting)
+[**Download ZIP**](https://github.com/vibran2566/spotify-playback-speed/releases/download/v0.3.2-alpha.1/spotify-playback-speed-v0.3.2-alpha.1.zip) · [Known limits](#known-limits) · [Troubleshooting](#troubleshooting)
 
 </div>
 
@@ -17,8 +17,8 @@ Speed and pitch control for the Spotify Windows desktop app.
 
 ## Install
 
-1. [Download the ZIP](https://github.com/vibran2566/spotify-playback-speed/archive/refs/heads/main.zip) and extract it.
-2. Double-click **Setup-Spotify-Playback-Speed.cmd**.
+1. [Download the ZIP](https://github.com/vibran2566/spotify-playback-speed/releases/download/v0.3.2-alpha.1/spotify-playback-speed-v0.3.2-alpha.1.zip) and extract it.
+2. Double-click **Setup.cmd**.
 3. If Windhawk's installer opens, finish it with **Development tools** included.
 4. Approve Windows' administrator permission request for the Windhawk mod, if shown.
 5. Open **Spotify Playback Speed** from your desktop or Start menu.
@@ -39,7 +39,7 @@ New installations use `%LOCALAPPDATA%\Programs\Spotify Playback Speed`. Upgrades
 Run setup from PowerShell with explicit paths:
 
 ```powershell
-.\Install-Spotify-Playback-Speed.ps1 `
+.\src\Install-Spotify-Playback-Speed.ps1 `
   -SpotifyPath 'D:\Apps\Spotify\Spotify.exe' `
   -WindhawkCli 'D:\Apps\Windhawk\windhawk-cli.exe'
 ```
