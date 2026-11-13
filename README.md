@@ -17,9 +17,9 @@ Speed and pitch control for the Spotify Windows desktop app, as a single [Windha
 
 ## Install
 
-Nothing to download or run. You paste one file into Windhawk, which compiles it.
+Paste one file into Windhawk, which compiles it.
 
-**1. Install Windhawk 2.** [Download windhawk_setup.exe](https://github.com/ramensoftware/windhawk/releases/download/2.0.0-alpha.8/windhawk_setup.exe) and run it. windhawk.net still offers 1.x, which won't work.
+**1. Install Windhawk 2.** [Download windhawk_setup.exe](https://github.com/ramensoftware/windhawk/releases/download/2.0.0-alpha.8/windhawk_setup.exe) and run it.
 
 **2. Copy the mod.** Open [spotify-playback-speed.wh.cpp](spotify-playback-speed.wh.cpp) and click **Copy raw file**, the copy icon above the code.
 
@@ -40,7 +40,7 @@ Nothing to download or run. You paste one file into Windhawk, which compiles it.
 **6. Restart Spotify.** Fully close it, including its tray icon, and open it again. The speed button appears just left of **Lyrics**.
 
 > [!TIP]
-> **To update**, open the mod in Windhawk, click **Edit**, paste the new version over the old code and click **Compile mod**. Then restart Spotify. Your speed setting is kept.
+> **To update**, open the mod in Windhawk, click **Edit**, paste the new version over the old code and click **Compile mod**. Then restart Spotify.
 
 ## Requirements
 
@@ -54,7 +54,7 @@ Nothing to download or run. You paste one file into Windhawk, which compiles it.
 
 ## Uninstall
 
-In Windhawk, open **Spotify Playback Speed** and click **Remove mod**, then restart Spotify. To turn it off for a while, disable the mod instead.
+In Windhawk, open **Spotify Playback Speed** and click **Remove mod**, then restart Spotify. To turn it off, disable the mod instead.
 
 ## Troubleshooting
 
