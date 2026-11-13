@@ -2,7 +2,7 @@
 
 Experimental speed and pitch control for the Spotify Windows desktop app. A button next to Lyrics opens a **0.50x–2.00x** slider with a **1x reset**. Changes apply live after initial setup.
 
-**Status: alpha, ready for technical users to try, not a stable release.** The original build was tested on Windows 11 x64 with Spotify 1.3.8.620 and Windhawk 2.0. One user confirmed clean music playback at 1.25x. Version 0.3.2 packages that implementation with portable paths and a launcher for Store and regular Spotify installations; other installations still need testing.
+**Status: experimental alpha.** Compatibility has been verified on Windows 11 x64 with Spotify 1.3.8.620 and Windhawk 2.0. Other configurations are not confirmed.
 
 ## Known limits
 
@@ -22,7 +22,7 @@ This is an independent project, not affiliated with Spotify. No Spotify applicat
 - [Windhawk](https://windhawk.net/) 2.0, running with its compiler and command line interface available.
 - [Node.js](https://nodejs.org/) 22 or newer, available as `node.exe` in PATH.
 
-No npm dependencies or npm installation are needed.
+No npm installation is needed.
 
 ## Install and start
 
@@ -79,33 +79,6 @@ The Node helper connects to Spotify's local debugger and injects `speed-control.
 
 Background: [Microsoft IAudioClockAdjustment](https://learn.microsoft.com/en-us/windows/win32/api/audioclient/nn-audioclient-iaudioclockadjustment). The project started from investigating [WMPotify](https://github.com/Ingan121/WMPotify); this package uses a Windows audio approach rather than its internal Spotify player hooks.
 
-## Development and checks
-
-```powershell
-npm run check
-npm test
-```
-
-These validate JavaScript syntax and exercise the launcher with mocked process and debugger operations. They do not launch Spotify or change audio.
-
-For native checks, use Windhawk to compile the source with the mod disabled in a separate test installation. `test-audio-backend.cpp` also exercises the native worker in a standalone process without injection. With an x64 MinGW-compatible Clang toolchain:
-
-```powershell
-clang++ --target=x86_64-w64-mingw32 -std=c++23 -O2 -static -DWIN32_LEAN_AND_MEAN -D_WIN32_WINNT=0x0A00 test-audio-backend.cpp -o test-audio-backend.exe -lole32 -luuid -lws2_32
-.\test-audio-backend.exe
-```
-
-This plays a quiet test tone. For optional speaker loopback quality checks, install `numpy` and `PyAudioWPatch`, then run `python test-audio-quality.py`. It reads speaker output, never a microphone. Close other audio sources first. Generated results are ignored by Git.
-
-`node test-speed-ui.mjs` tests the UI against a mock bridge in a real Spotify debugger session. It requires port 8758 to be free and can replace the current control; stop the helper and disable the real mod first. It does not test real Spotify audio.
-
-## Before a stable release
-
-- Synchronize the progress bar and lyrics with the changed rate.
-- Test clean setup on a second PC, regular Spotify installations, additional devices, and Spotify versions.
-- Verify the full speed range, track changes, seek/pause behavior, sleep/wake, reboot, and native unload under load.
-- Harden audio-client lifetime tracking: the current client-rate map retains entries across Stop for later Start.
-
 ## License
 
-[MIT](LICENSE). Source only; Spotify, Windhawk, Node.js, and optional test dependencies retain their own licenses.
+[MIT](LICENSE). Spotify, Windhawk, and Node.js retain their own licenses.
