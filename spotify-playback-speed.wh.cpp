@@ -2,7 +2,7 @@
 // @id spotify-playback-speed
 // @name Spotify Playback Speed
 // @description Adds a 0.5x-2x speed slider next to Spotify's Lyrics button
-// @version 0.4.0
+// @version 0.4.1
 // @author vibran
 // @github https://github.com/vibran2566
 // @homepage https://github.com/vibran2566/spotify-playback-speed
@@ -247,14 +247,14 @@ constexpr char16_t speedControlScript[]=uR"js((() => {
   button.setAttribute('aria-expanded', 'false');
   const panel = document.createElement('div');
   panel.id = 'spotify-speed-panel';panel.hidden = true;panel.setAttribute('role', 'dialog');panel.setAttribute('aria-label', 'Playback speed');
-  panel.innerHTML = `<div class="speed-heading"><output id="spotify-speed-value" for="spotify-speed-range">1.00×</output><button id="spotify-speed-reset" type="button" aria-label="Reset playback speed to 1×">1×</button></div><input id="spotify-speed-range" type="range" min="50" max="200" step="1" value="100" aria-label="Playback speed"><div class="speed-limits"><span>0.50×</span><span>2.00×</span></div><p id="spotify-speed-status" role="status" aria-live="polite">Pitch changes with speed.</p>`;
+  panel.innerHTML = `<div class="speed-heading"><output id="spotify-speed-value" for="spotify-speed-range">1.00\u00d7</output><button id="spotify-speed-reset" type="button" aria-label="Reset playback speed to 1\u00d7">1\u00d7</button></div><input id="spotify-speed-range" type="range" min="50" max="200" step="1" value="100" aria-label="Playback speed"><div class="speed-limits"><span>0.50\u00d7</span><span>2.00\u00d7</span></div><p id="spotify-speed-status" role="status" aria-live="polite">Pitch changes with speed.</p>`;
   document.body.append(panel);
   const range = panel.querySelector('input'), value = panel.querySelector('output'), status = panel.querySelector('p');
   function paint(p) {
     range.value = String(p);range.style.setProperty('--fill', `${(p - 50) / 1.5}%`);
-    value.textContent = `${(p / 100).toFixed(2)}×`;
-    button.textContent = `${(p / 100).toFixed(2).replace(/0+$/, '').replace(/\.$/, '')}×`;
-    button.title = `Playback speed: ${(p / 100).toFixed(2)}×`;button.setAttribute('aria-label', button.title);
+    value.textContent = `${(p / 100).toFixed(2)}\u00d7`;
+    button.textContent = `${(p / 100).toFixed(2).replace(/0+$/, '').replace(/\.$/, '')}\u00d7`;
+    button.title = `Playback speed: ${(p / 100).toFixed(2)}\u00d7`;button.setAttribute('aria-label', button.title);
     button.dataset.active = String(p !== 100);range.setAttribute('aria-valuetext', `${(p / 100).toFixed(2)} times normal speed`);
   }
   function failed() {
