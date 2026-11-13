@@ -8,7 +8,7 @@ Speed and pitch control for the Spotify Windows desktop app.
 
 **0.50x – 2.00x** · one-click **1x** reset · sits next to the Lyrics button
 
-[**Download ZIP**](https://github.com/vibran2566/spotify-audio-speed/archive/refs/heads/main.zip) · [Known limits](#known-limits) · [Troubleshooting](#troubleshooting)
+[**Download ZIP**](https://github.com/vibran2566/spotify-playback-speed/archive/refs/heads/main.zip) · [Known limits](#known-limits) · [Troubleshooting](#troubleshooting)
 
 </div>
 
@@ -17,11 +17,11 @@ Speed and pitch control for the Spotify Windows desktop app.
 
 ## Install
 
-1. [Download the ZIP](https://github.com/vibran2566/spotify-audio-speed/archive/refs/heads/main.zip) and extract it.
-2. Double-click **Setup.cmd**.
+1. [Download the ZIP](https://github.com/vibran2566/spotify-playback-speed/archive/refs/heads/main.zip) and extract it.
+2. Double-click **Setup-Spotify-Playback-Speed.cmd**.
 3. If Windhawk's installer opens, finish it with **Development tools** included.
 4. Approve Windows' administrator permission request for the Windhawk mod, if shown.
-5. Open **Spotify Speed** from your desktop or Start menu.
+5. Open **Spotify Playback Speed** from your desktop or Start menu.
 
 Start playback, then click the speed button just left of **Lyrics**.
 
@@ -30,6 +30,8 @@ Setup stays in your user account. With a standard Windhawk installation, only th
 > [!TIP]
 > **To update**, download a new ZIP and run Setup again. Your speed setting is kept.
 
+New installations use `%LOCALAPPDATA%\Programs\Spotify Playback Speed`. Upgrades keep an existing installation in place and replace the older shortcut names.
+
 <details>
 <summary>Spotify or Windhawk installed somewhere custom?</summary>
 <br>
@@ -37,7 +39,7 @@ Setup stays in your user account. With a standard Windhawk installation, only th
 Run setup from PowerShell with explicit paths:
 
 ```powershell
-.\Install-Spotify-Speed.ps1 `
+.\Install-Spotify-Playback-Speed.ps1 `
   -SpotifyPath 'D:\Apps\Spotify\Spotify.exe' `
   -WindhawkCli 'D:\Apps\Windhawk\windhawk-cli.exe'
 ```
@@ -53,7 +55,7 @@ Run setup from PowerShell with explicit paths:
 
 - Spotify updates may break the button placement or the audio hook.
 - The audio buffer is raised to 250 ms, which adds a little latency.
-- The helper keeps running after Spotify closes. Reopen Spotify with the **Spotify Speed** shortcut so the control comes back.
+- The helper keeps running after Spotify closes. Reopen Spotify with the **Spotify Playback Speed** shortcut so the control comes back.
 
 ## Uninstall
 
@@ -69,7 +71,7 @@ To turn it off temporarily, disable **Spotify Playback Speed** in Windhawk.
 <summary><b>No speed button</b></summary>
 <br>
 
-Open Spotify with the **Spotify Speed** shortcut. If startup fails, read its error message. Logs are in `%LOCALAPPDATA%\Programs\Spotify Playback Speed\.runtime`. A Spotify UI update may also have moved the Lyrics button.
+Open Spotify with the **Spotify Playback Speed** shortcut. If startup fails, read its error message. Logs are in `.runtime` inside the installation folder (normally `%LOCALAPPDATA%\Programs\Spotify Playback Speed`). A Spotify UI update may also have moved the Lyrics button.
 
 </details>
 <br>

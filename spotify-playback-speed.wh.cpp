@@ -1,6 +1,6 @@
 // ==WindhawkMod==
 // @id spotify-audio-speed
-// @name Spotify Audio Speed
+// @name Spotify Playback Speed
 // @description Live speed and pitch control for Spotify's Windows audio stream
 // @version 0.3.2
 // @author vibran

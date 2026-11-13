@@ -22,7 +22,7 @@ $debugReady=$false
 try { $pages=Invoke-RestMethod 'http://127.0.0.1:9222/json/list' -TimeoutSec 2 } catch { $pages=$null }
 if($null -ne $pages) {
     $debugReady=@($pages | Where-Object { $_.type -eq 'page' -and $_.url -like 'https://xpui.app.spotify.com/*' }).Count -gt 0
-    if(-not $debugReady -and @($pages).Count -gt 0) { throw 'Port 9222 is serving another debugger. Close it before starting Spotify Speed.' }
+    if(-not $debugReady -and @($pages).Count -gt 0) { throw 'Port 9222 is serving another debugger. Close it before starting Spotify Playback Speed.' }
 }
 if($config -and $config.needsRestart) { $debugReady=$false }
 if(-not $debugReady) {
@@ -60,6 +60,6 @@ do {
 } while((Get-Date) -lt $deadline)
 throw 'Spotify speed control did not become ready. Finish signing into Spotify and make sure a track is available. Check that the mod is enabled in Windhawk, then try again. Details are in .runtime\host-errors.log in the installation folder.'
 } catch {
-    if($ShowErrors) { $shell=New-Object -ComObject WScript.Shell;$null=$shell.Popup($_.Exception.Message,0,'Spotify Audio Speed',16);exit 1 }
+    if($ShowErrors) { $shell=New-Object -ComObject WScript.Shell;$null=$shell.Popup($_.Exception.Message,0,'Spotify Playback Speed',16);exit 1 }
     throw
 }
