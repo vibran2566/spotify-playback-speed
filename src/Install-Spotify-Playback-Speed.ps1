@@ -43,7 +43,7 @@ try {
     if(-not $SpotifyPath) {
         $SpotifyPath=@("$env:APPDATA\Spotify\Spotify.exe","$env:LOCALAPPDATA\Microsoft\WindowsApps\Spotify.exe") | Where-Object { Test-Path -LiteralPath $_ -PathType Leaf } | Select-Object -First 1
     }
-    if(-not $SpotifyPath -or -not (Test-Path -LiteralPath $SpotifyPath -PathType Leaf)) { throw 'Install Spotify first. For a custom location, run Install-Spotify-Playback-Speed.ps1 -SpotifyPath with its executable path.' }
+    if(-not $SpotifyPath -or -not (Test-Path -LiteralPath $SpotifyPath -PathType Leaf)) { throw 'Install Spotify first. For a custom location, run .\src\Install-Spotify-Playback-Speed.ps1 -SpotifyPath with its executable path from the extracted folder.' }
     $cli=Find-Windhawk
     if(-not $cli) {
         Write-Host 'Downloading the official Windhawk 2 installer. In its wizard, include Development tools.' -ForegroundColor Yellow
