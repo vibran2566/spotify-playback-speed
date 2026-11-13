@@ -6,4 +6,4 @@ Check JavaScript syntax with `node --check speed-control.js` and `node --check k
 
 Do not commit recordings, Spotify binaries, logs, user configuration, or generated executables. Describe which checks you ran and any audio or compatibility limits you observed.
 
-The next priorities are progress/lyrics timing, clean installation on another PC, and safe native audio-client lifetime handling. Contributions are under the MIT license.
+Contributions are under the MIT license.
