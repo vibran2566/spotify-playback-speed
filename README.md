@@ -1,6 +1,6 @@
 <div align="center">
 
-# Spotify Audio Speed
+# Spotify Playback Speed
 
 Speed and pitch control for the Spotify Windows desktop app.
 
@@ -54,9 +54,9 @@ Run setup from PowerShell with explicit paths:
 
 ## Uninstall
 
-Remove **Spotify Audio Speed** from Windows' installed apps. This stops all helpers. Spotify and Windhawk stay installed. Then fully close and reopen Spotify.
+Remove **Spotify Playback Speed** from Windows' installed apps. This stops all helpers. Spotify and Windhawk stay installed. Then fully close and reopen Spotify.
 
-To turn it off temporarily, disable **Spotify Audio Speed** in Windhawk.
+To turn it off temporarily, disable **Spotify Playback Speed** in Windhawk.
 
 ## Troubleshooting
 
@@ -64,7 +64,7 @@ To turn it off temporarily, disable **Spotify Audio Speed** in Windhawk.
 <summary><b>No speed button</b></summary>
 <br>
 
-Open Spotify with the **Spotify Speed** shortcut. If startup fails, read its error message. Logs are in `%LOCALAPPDATA%\Programs\Spotify Audio Speed\.runtime`. A Spotify UI update may also have moved the Lyrics button.
+Open Spotify with the **Spotify Speed** shortcut. If startup fails, read its error message. Logs are in `%LOCALAPPDATA%\Programs\Spotify Playback Speed\.runtime`. A Spotify UI update may also have moved the Lyrics button.
 
 </details>
 <br>
