@@ -2,13 +2,13 @@
 
 # Spotify Playback Speed
 
-Speed and pitch control for the Spotify Windows desktop app.
+Speed and pitch control for the Spotify Windows desktop app, as a single [Windhawk](https://github.com/ramensoftware/windhawk) mod.
 
 <img width="291" height="215" alt="Speed slider open above Spotify's playback controls" src="https://github.com/user-attachments/assets/32410baf-9d38-4c78-be93-4146eab4f265" />
 
 **0.50x – 2.00x** · one-click **1x** reset · sits next to the Lyrics button
 
-[**Download**](https://github.com/vibran2566/spotify-playback-speed/releases) · [Known limits](#known-limits) · [Troubleshooting](#troubleshooting)
+[**Get the mod**](spotify-playback-speed.wh.cpp) · [Known limits](#known-limits) · [Troubleshooting](#troubleshooting)
 
 </div>
 
@@ -17,52 +17,32 @@ Speed and pitch control for the Spotify Windows desktop app.
 
 ## Install
 
-1. Install **Windhawk 2**: [download windhawk_setup.exe](https://github.com/ramensoftware/windhawk/releases/download/2.0.0-alpha.8/windhawk_setup.exe) and include **Development tools** in its installer. (windhawk.net still offers 1.x, which won't work.)
-2. Install **Node.js**: [download the Node.js installer](https://nodejs.org/dist/v26.13.1/node-v26.13.1-x64.msi) and click through it with the default options. Skip this if you already have Node.js 22 or newer.
-3. Open [Releases](https://github.com/vibran2566/spotify-playback-speed/releases), download the `.zip` under **Assets** of the newest release, and extract it.
-4. Double-click **Setup.cmd**. If Windows shows a SmartScreen warning, click **More info → Run anyway**.
-5. Open **Spotify Playback Speed** from your desktop or Start menu.
+Nothing to download or run. You paste one file into Windhawk, which compiles it.
 
-Start playback, then click the speed button just left of **Lyrics**.
+1. Install **Windhawk 2**: [download windhawk_setup.exe](https://github.com/ramensoftware/windhawk/releases/download/2.0.0-alpha.8/windhawk_setup.exe). windhawk.net still offers 1.x, which won't work.
+2. Open [spotify-playback-speed.wh.cpp](spotify-playback-speed.wh.cpp) and click **Copy raw file** (the copy icon above the code).
+3. In Windhawk, click **Create a new mod**. If it asks for development tools, click **Install development tools** first.
+4. Select all of the example code, paste over it, then click **Compile mod** and **Exit editing mode**.
+5. Fully close Spotify (including its tray icon) and open it again.
+
+The speed button appears just left of **Lyrics**.
 
 > [!TIP]
-> **To update**, download a new ZIP and run Setup again. Your speed setting is kept.
-
-New installations use `%LOCALAPPDATA%\Programs\Spotify Playback Speed`. Upgrades keep an existing installation in place and replace the older shortcut names.
-
-<details>
-<summary>Spotify or Windhawk installed somewhere custom?</summary>
-<br>
-
-Run setup from PowerShell with explicit paths:
-
-```powershell
-.\src\Install-Spotify-Playback-Speed.ps1 `
-  -SpotifyPath 'D:\Apps\Spotify\Spotify.exe' `
-  -WindhawkCli 'D:\Apps\Windhawk\windhawk-cli.exe'
-```
-
-</details>
+> **To update**, open the mod in Windhawk, click **Edit**, paste the new version over the old code and click **Compile mod**. Then restart Spotify. Your speed setting is kept.
 
 ## Requirements
 
 - Windows x64 with the Spotify desktop app
-- [Windhawk 2](https://github.com/ramensoftware/windhawk/releases) with Development tools
-- [Node.js](https://nodejs.org/) 22 or newer
+- [Windhawk 2](https://github.com/ramensoftware/windhawk/releases) with development tools
 
 ## Known limits
 
-- Spotify updates may break the button placement or the audio hook.
+- Spotify updates may move the Lyrics button or change the audio engine.
 - The audio buffer is raised to 250 ms, which adds a little latency.
-- The helper keeps running after Spotify closes. Reopen Spotify with the **Spotify Playback Speed** shortcut so the control comes back.
 
 ## Uninstall
 
-Remove **Spotify Playback Speed** from Windows' installed apps. This stops all helpers. Spotify and Windhawk stay installed. Then fully close and reopen Spotify.
-
-Standard Windhawk installations may request administrator permission to remove the mod. If Windhawk or the mod was already removed, app cleanup still finishes. Cancelling an administrator request leaves the app registered so you can retry removal.
-
-To turn it off temporarily, disable **Spotify Playback Speed** in Windhawk.
+In Windhawk, open **Spotify Playback Speed** and click **Remove mod**, then restart Spotify. To turn it off for a while, disable the mod instead.
 
 ## Troubleshooting
 
@@ -70,25 +50,16 @@ To turn it off temporarily, disable **Spotify Playback Speed** in Windhawk.
 <summary><b>No speed button</b></summary>
 <br>
 
-Open Spotify with the **Spotify Playback Speed** shortcut. If startup fails, read its error message. Logs are in `.runtime` inside the installation folder (normally `%LOCALAPPDATA%\Programs\Spotify Playback Speed`). A Spotify UI update may also have moved the Lyrics button.
+Check that the mod is enabled in Windhawk, then fully close Spotify, including its tray icon, and open it again. The mod adds the button while Spotify starts. A Spotify update may also have moved the Lyrics button; please open an issue with your Spotify version.
 
 </details>
 <br>
 
 <details>
-<summary><b>Speed control unavailable</b></summary>
+<summary><b>"Speed control unavailable"</b></summary>
 <br>
 
-Check that Windhawk and the mod are enabled, then fully close Spotify and reopen it with the shortcut. The mod has to load before Spotify creates its audio stream.
-
-</details>
-<br>
-
-<details>
-<summary><b>Port 9222 belongs to another debugger</b></summary>
-<br>
-
-Close that debugger before launching. The script won't take over another debugger session.
+Fully close and reopen Spotify. The mod has to load before Spotify creates its audio stream. If it still shows, another program may be using local port 8758.
 
 </details>
 <br>
@@ -103,19 +74,10 @@ Go back to 1x and open an issue with your Spotify version, Windows version, audi
 <br>
 
 <details>
-<summary><b>Setup can't find Windhawk 2 or its development tools</b></summary>
+<summary><b>Compiling fails</b></summary>
 <br>
 
-[Install Windhawk 2](https://github.com/ramensoftware/windhawk/releases/download/2.0.0-alpha.8/windhawk_setup.exe), not 1.x from windhawk.net. If it's already installed, add **Development tools** in Windhawk, then run Setup again.
-
-</details>
-<br>
-
-<details>
-<summary><b>Setup says Node.js wasn't found</b></summary>
-<br>
-
-[Install Node.js](https://nodejs.org/dist/v26.13.1/node-v26.13.1-x64.msi), then run Setup again. If you just installed it, close the Setup window first so it sees the new install.
+Make sure you're on Windhawk 2 with development tools installed, and that you replaced all of the example code. Then compile again.
 
 </details>
 
@@ -123,4 +85,4 @@ Go back to 1x and open an issue with your Spotify version, Windows version, audi
 
 Started from investigating [WMPotify](https://github.com/Ingan121/WMPotify). Independent project, not affiliated with Spotify.
 
-[MIT](LICENSE). Spotify, Windhawk, and Node.js keep their own licenses.
+[MIT](LICENSE). Spotify and Windhawk keep their own licenses.
