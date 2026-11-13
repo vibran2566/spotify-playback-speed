@@ -5,11 +5,11 @@ Experimental speed and pitch control for the Spotify Windows desktop app. A butt
 ## Known limits
 
 - **Progress bar timing and synchronized lyric scrolling do not account for the changed speed yet.**
-- Spotify updates may break the button placement or audio integration. Only the version above has been exercised.
-- The audio buffer is increased to 250 ms, which adds latency. Other audio devices, full-range listening, sleep/wake, and reboot recovery are not verified.
+- Spotify updates may break the button placement or audio integration.
+- The audio buffer is increased to 250 ms, which adds latency.
 - The helper remains running while Spotify is closed. Use this project's launcher when reopening Spotify so the control can return.
 
-This is an independent project, not affiliated with Spotify. No Spotify application files, recordings, or proprietary binaries are distributed.
+This is an independent project.
 
 ## Requirements
 
@@ -25,9 +25,9 @@ Setup reuses [Windhawk](https://windhawk.net/) 2.x and Node.js 22+ when availabl
 4. Open **Spotify Speed** from your desktop or Start menu.
 
 
-Start playback, then click the speed button immediately left of Lyrics. The **1x** button resets the rate. Windhawk is started automatically when needed. Startup failures display an error message.
+Start playback, then click the speed button immediately left of Lyrics. The **1x** button resets the rate.
 
-To update, download a new ZIP and run Setup again. Your selected speed is stored in Windhawk. Setup does not change the machine's PowerShell execution policy; the batch launcher permits its included script only for that setup process.
+To update, download a new ZIP and run Setup again. Your selected speed is stored in Windhawk. 
 
 For custom Spotify or portable Windhawk locations, run setup from PowerShell with explicit paths:
 
@@ -37,9 +37,9 @@ For custom Spotify or portable Windhawk locations, run setup from PowerShell wit
 
 ## Stop and remove
 
-Remove **Spotify Audio Speed** through Windows **Settings > Apps > Installed apps**. This stops its helper, removes its Windhawk mod, shortcuts and installed files. User-added files are preserved. Spotify and Windhawk stay installed.
+Remove **Spotify Audio Speed** through Windows. This stops all helpers. Spotify and Windhawk stay installed.
 
-Then fully close Spotify and reopen it using its ordinary shortcut to remove the injected UI and close the debugger. To temporarily turn off the audio tweak without uninstalling it, disable **Spotify Audio Speed** in Windhawk.
+Then fully close Spotify and reopen it. To temporarily turn off the audio tweak without uninstalling it, disable **Spotify Audio Speed** in Windhawk.
 
 ## Troubleshooting
 
@@ -49,10 +49,9 @@ Then fully close Spotify and reopen it using its ordinary shortcut to remove the
 - **Crackling:** return to 1x. Report your Spotify version, Windows version, audio device, and the rates affected. Earlier development builds crackled; the larger buffer helped on the tested machine, but is not a guarantee for every device.
 - **Setup cannot find Windhawk development tools:** add Development tools in Windhawk and rerun Setup.
 - **Setup cannot download dependencies:** check your internet connection, or install Windhawk 2 with Development tools and Node.js 22+ manually, then rerun Setup.
-- **An organization blocks PowerShell scripts:** follow your organization's policy; Setup does not override managed restrictions.
 
-Background: [Microsoft IAudioClockAdjustment](https://learn.microsoft.com/en-us/windows/win32/api/audioclient/nn-audioclient-iaudioclockadjustment). The project started from investigating [WMPotify](https://github.com/Ingan121/WMPotify); this package uses a Windows audio approach rather than its internal Spotify player hooks.
+Background: The project started from investigating [WMPotify](https://github.com/Ingan121/WMPotify);
 
 ## License
 
-[MIT](LICENSE). Spotify, Windhawk, and Node.js retain their own licenses.
+[MIT](LICENSE). Spotify, Windhawk, and Node.js retain licenses.
