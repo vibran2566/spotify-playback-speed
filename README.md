@@ -24,11 +24,7 @@ Speed and pitch control for the Spotify Windows desktop app.
 5. Approve Windows' administrator permission request for the Windhawk mod, if shown.
 6. Open **Spotify Playback Speed** from your desktop or Start menu.
 
-Setup doesn't download anything. It only copies its files, adds the mod to Windhawk and creates the shortcuts.
-
 Start playback, then click the speed button just left of **Lyrics**.
-
-Setup stays in your user account. With a standard Windhawk installation, only the mod operation requests administrator permission. Portable Windhawk installations run without elevation. If you cancel the permission request, Setup reports the failure and can be run again.
 
 > [!TIP]
 > **To update**, download a new ZIP and run Setup again. Your speed setting is kept.
