@@ -21,8 +21,7 @@ Speed and pitch control for the Spotify Windows desktop app.
 2. Install **Node.js**: [download the Node.js installer](https://nodejs.org/dist/v26.13.1/node-v26.13.1-x64.msi) and click through it with the default options. Skip this if you already have Node.js 22 or newer.
 3. Open [Releases](https://github.com/vibran2566/spotify-playback-speed/releases), download the `.zip` under **Assets** of the newest release, and extract it.
 4. Double-click **Setup.cmd**. If Windows shows a SmartScreen warning, click **More info → Run anyway**.
-5. Approve Windows' administrator permission request for the Windhawk mod, if shown.
-6. Open **Spotify Playback Speed** from your desktop or Start menu.
+5. Open **Spotify Playback Speed** from your desktop or Start menu.
 
 Start playback, then click the speed button just left of **Lyrics**.
 
