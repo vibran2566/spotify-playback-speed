@@ -45,22 +45,7 @@ try {
     }
     if(-not $SpotifyPath -or -not (Test-Path -LiteralPath $SpotifyPath -PathType Leaf)) { throw 'Install Spotify first. For a custom location, run .\src\Install-Spotify-Playback-Speed.ps1 -SpotifyPath with its executable path from the extracted folder.' }
     $cli=Find-Windhawk
-    if(-not $cli) {
-        Write-Host 'Downloading the official Windhawk 2 installer. In its wizard, include Development tools.' -ForegroundColor Yellow
-        $release=(Invoke-RestMethod 'https://api.github.com/repos/ramensoftware/windhawk/releases?per_page=20' -Headers @{'User-Agent'='Spotify-Playback-Speed-Setup'}) |
-            Where-Object { -not $_.draft -and $_.tag_name -match '^v?2\.' } | Select-Object -First 1
-        $asset=$release.assets | Where-Object name -eq 'windhawk_setup.exe' | Select-Object -First 1
-        if(-not $asset -or $asset.browser_download_url -notlike 'https://github.com/ramensoftware/windhawk/releases/download/*' -or $asset.digest -notmatch '^sha256:[0-9a-fA-F]{64}$') { throw 'Could not find a verifiable official Windhawk 2 installer. Install it from https://github.com/ramensoftware/windhawk/releases and rerun Setup.' }
-        $downloadDir=Join-Path ([IO.Path]::GetTempPath()) ('spotify-speed-'+[guid]::NewGuid())
-        New-Item -ItemType Directory -Path $downloadDir | Out-Null
-        $installer=Join-Path $downloadDir 'windhawk_setup.exe'
-        Download $asset.browser_download_url $installer
-        Check-Hash $installer $asset.digest.Substring(7)
-        $process=Start-Process -FilePath $installer -Wait -PassThru
-        if($process.ExitCode -ne 0) { throw 'Windhawk installation was cancelled or failed. Run Setup again when ready.' }
-        $cli=Find-Windhawk
-        if(-not $cli) { throw 'Windhawk CLI was not found after installation. Install Windhawk 2, or pass -WindhawkCli with the full path to windhawk-cli.exe.' }
-    }
+    if(-not $cli) { throw 'Windhawk 2 was not found. Install it from https://github.com/ramensoftware/windhawk/releases (windhawk_setup.exe from the newest 2.x release) with Development tools, then run Setup again.' }
     $windhawkRoot=Split-Path -Parent $cli
     if(-not (Test-Path -LiteralPath (Join-Path $windhawkRoot 'Compiler\bin\clang++.exe') -PathType Leaf)) {
         throw 'Windhawk development tools are missing. Add Development tools in Windhawk, then run Setup again.'
@@ -123,10 +108,14 @@ try {
     $shell=New-Object -ComObject WScript.Shell
     $powershell=Join-Path $env:SystemRoot 'System32\WindowsPowerShell\v1.0\powershell.exe'
     $arguments='-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File "'+(Join-Path $InstallDir 'Start-Spotify-Playback-Speed.ps1')+'" -ShowErrors'
+    # Store Spotify's Spotify.exe is an app alias with no icon, so point at the package's real exe.
+    # shortcut: the Store package path changes when Spotify updates, blanking the icon until Setup runs again; extract a .ico if users notice.
+    $iconPath=$SpotifyPath
+    if($SpotifyPath -like '*\WindowsApps\*') { $package=Get-AppxPackage SpotifyAB.SpotifyMusic -ErrorAction SilentlyContinue | Select-Object -First 1; if($package) { $iconPath=Join-Path $package.InstallLocation 'Spotify.exe' } }
     $startMenu=Join-Path ([Environment]::GetFolderPath('Programs')) 'Spotify Playback Speed'
     New-Item -ItemType Directory -Force -Path $startMenu | Out-Null
     foreach($path in @((Join-Path ([Environment]::GetFolderPath('Desktop')) 'Spotify Playback Speed.lnk'),(Join-Path $startMenu 'Spotify Playback Speed.lnk'))) {
-        $shortcut=$shell.CreateShortcut($path);$shortcut.TargetPath=$powershell;$shortcut.Arguments=$arguments;$shortcut.WorkingDirectory=$InstallDir;$shortcut.Description='Spotify with live speed control';$shortcut.Save()
+        $shortcut=$shell.CreateShortcut($path);$shortcut.TargetPath=$powershell;$shortcut.Arguments=$arguments;$shortcut.WorkingDirectory=$InstallDir;$shortcut.IconLocation="$iconPath,0";$shortcut.Description='Spotify with live speed control';$shortcut.Save()
     }
     $key='HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\SpotifyAudioSpeed'
     New-Item -Path $key -Force | Out-Null

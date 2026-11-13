@@ -17,9 +17,9 @@ Speed and pitch control for the Spotify Windows desktop app.
 
 ## Install
 
-1. Open [Releases](https://github.com/vibran2566/spotify-playback-speed/releases), download the `.zip` under **Assets** of the newest release, and extract it.
-2. Double-click **Setup.cmd**. If Windows shows a SmartScreen warning, click **More info → Run anyway**.
-3. If Windhawk's installer opens, finish it with **Development tools** included.
+1. Install **Windhawk 2**: download `windhawk_setup.exe` from the newest 2.x release on [Windhawk's GitHub](https://github.com/ramensoftware/windhawk/releases) and include **Development tools** in its installer. (windhawk.net still offers 1.x, which won't work.)
+2. Open [Releases](https://github.com/vibran2566/spotify-playback-speed/releases), download the `.zip` under **Assets** of the newest release, and extract it.
+3. Double-click **Setup.cmd**. If Windows shows a SmartScreen warning, click **More info → Run anyway**.
 4. Approve Windows' administrator permission request for the Windhawk mod, if shown.
 5. Open **Spotify Playback Speed** from your desktop or Start menu.
 
@@ -49,7 +49,8 @@ Run setup from PowerShell with explicit paths:
 ## Requirements
 
 - Windows x64 with the Spotify desktop app
-- [Windhawk](https://windhawk.net/) 2.x and Node.js 22+. Setup reuses them if they're already installed.
+- [Windhawk 2](https://github.com/ramensoftware/windhawk/releases) with Development tools
+- Node.js 22+. If it isn't installed, Setup downloads a portable copy from nodejs.org and checks its checksum.
 
 ## Known limits
 
@@ -104,19 +105,19 @@ Go back to 1x and open an issue with your Spotify version, Windows version, audi
 <br>
 
 <details>
-<summary><b>Setup can't find Windhawk development tools</b></summary>
+<summary><b>Setup can't find Windhawk 2 or its development tools</b></summary>
 <br>
 
-Add **Development tools** in Windhawk, then run Setup again.
+Install Windhawk 2 from its [GitHub releases](https://github.com/ramensoftware/windhawk/releases), not 1.x from windhawk.net. If it's already installed, add **Development tools** in Windhawk, then run Setup again.
 
 </details>
 <br>
 
 <details>
-<summary><b>Setup can't download dependencies</b></summary>
+<summary><b>Setup can't download Node.js</b></summary>
 <br>
 
-Check your internet connection. Or install Windhawk 2 with Development tools and Node.js 22+ yourself, then run Setup again.
+Check your internet connection, or install Node.js 22+ yourself, then run Setup again.
 
 </details>
 

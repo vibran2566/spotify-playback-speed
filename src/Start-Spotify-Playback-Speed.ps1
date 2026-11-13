@@ -16,7 +16,7 @@ if(-not (Test-Path -LiteralPath $helperPath -PathType Leaf)) { throw 'UI helper 
 if($config -and -not (Get-Process -Name windhawk -ErrorAction SilentlyContinue)) {
     $windhawkExe=Join-Path (Split-Path -Parent $config.windhawkCli) 'windhawk.exe'
     if(-not (Test-Path -LiteralPath $windhawkExe -PathType Leaf)) { throw 'Windhawk is missing. Run Setup again.' }
-    Start-Process -FilePath $windhawkExe -WindowStyle Hidden
+    Start-Process -FilePath $windhawkExe -ArgumentList '-tray-only'
 }
 $debugReady=$false
 try { $pages=Invoke-RestMethod 'http://127.0.0.1:9222/json/list' -TimeoutSec 2 } catch { $pages=$null }
@@ -37,7 +37,7 @@ if(-not $debugReady) {
         throw 'Spotify was not found. Pass -SpotifyPath with the full path to Spotify.exe.'
     }
     Get-Process -Name Spotify -ErrorAction SilentlyContinue | Stop-Process
-    Start-Process -FilePath $SpotifyPath -ArgumentList '--remote-debugging-address=127.0.0.1','--remote-debugging-port=9222' -WindowStyle Hidden
+    Start-Process -FilePath $SpotifyPath -ArgumentList '--remote-debugging-address=127.0.0.1','--remote-debugging-port=9222'
 }
 $watcher=Get-CimInstance Win32_Process -Filter "name='node.exe'" | Where-Object { $_.CommandLine -and $_.CommandLine.Contains($helperPath) }
 $runtime=Join-Path $taskRoot '.runtime'
