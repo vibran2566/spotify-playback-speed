@@ -29,11 +29,15 @@ Nothing to download or run. You paste one file into Windhawk, which compiles it.
 
 <img src="images/2-create-new-mod.png" alt="Windhawk home screen with the Create a new mod button highlighted" width="700">
 
-**4. Paste and compile.** The editor opens with example code. Press **Ctrl+A**, then **Ctrl+V** to replace it with the mod. Click **Compile mod**, wait for it to finish, then click **Exit editing mode**.
+**4. Paste and compile.** Press **Ctrl+A**, then **Ctrl+V** to replace the example code. Click **Compile mod**.
 
-<img src="images/3-compile-mod.png" alt="Windhawk editor with the Compile mod button highlighted" width="700">
+<img src="images/3-compile-mod.png" alt="Windhawk editor with the mod pasted in and the Compile mod button highlighted" width="700">
 
-**5. Restart Spotify.** Fully close it, including its tray icon, and open it again. The speed button appears just left of **Lyrics**.
+**5. Close the editor** once it finishes compiling.
+
+<img src="images/4-close-editor.png" alt="Windhawk editor after compiling, with the window's close button highlighted" width="700">
+
+**6. Restart Spotify.** Fully close it, including its tray icon, and open it again. The speed button appears just left of **Lyrics**.
 
 > [!TIP]
 > **To update**, open the mod in Windhawk, click **Edit**, paste the new version over the old code and click **Compile mod**. Then restart Spotify. Your speed setting is kept.
