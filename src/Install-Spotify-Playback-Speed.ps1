@@ -5,7 +5,6 @@ param(
     [string]$InstallDir=(Join-Path $env:LOCALAPPDATA 'Programs\Spotify Playback Speed')
 )
 $ErrorActionPreference='Stop'
-[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
 $files=@('Start-Spotify-Playback-Speed.ps1','keep-speed-control.mjs','speed-control.js','spotify-playback-speed.wh.cpp','Uninstall-Spotify-Playback-Speed.ps1','Windhawk-Operations.ps1')
 $sourceFiles=@($files | ForEach-Object { Join-Path $PSScriptRoot $_ })
 $packageRoot=Split-Path -Parent $PSScriptRoot
@@ -24,14 +23,6 @@ function Find-Windhawk {
     $candidates=@($WindhawkCli,$command.Source,"$env:LOCALAPPDATA\Programs\Windhawk\windhawk-cli.exe","$env:ProgramFiles\Windhawk\windhawk-cli.exe","${env:ProgramFiles(x86)}\Windhawk\windhawk-cli.exe")
     $candidates | Where-Object { $_ -and (Test-Path -LiteralPath $_ -PathType Leaf) } | Select-Object -First 1
 }
-function Download($Url,$Path) {
-    Invoke-WebRequest -UseBasicParsing -Uri $Url -OutFile $Path
-}
-function Check-Hash($Path,$Expected) {
-    if($Expected -notmatch '^[0-9a-fA-F]{64}$' -or (Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash -ne $Expected) {
-        throw 'Downloaded file failed its SHA256 check. Nothing from that download will be run.'
-    }
-}
 
 try {
     Write-Host 'Spotify Playback Speed Setup' -ForegroundColor Green
@@ -45,11 +36,17 @@ try {
     }
     if(-not $SpotifyPath -or -not (Test-Path -LiteralPath $SpotifyPath -PathType Leaf)) { throw 'Install Spotify first. For a custom location, run .\src\Install-Spotify-Playback-Speed.ps1 -SpotifyPath with its executable path from the extracted folder.' }
     $cli=Find-Windhawk
-    if(-not $cli) { throw 'Windhawk 2 was not found. Install it from https://github.com/ramensoftware/windhawk/releases (windhawk_setup.exe from the newest 2.x release) with Development tools, then run Setup again.' }
+    if(-not $cli) { throw 'Windhawk 2 was not found. Install it from https://github.com/ramensoftware/windhawk/releases/download/2.0.0-alpha.8/windhawk_setup.exe with Development tools, then run Setup again.' }
     $windhawkRoot=Split-Path -Parent $cli
     if(-not (Test-Path -LiteralPath (Join-Path $windhawkRoot 'Compiler\bin\clang++.exe') -PathType Leaf)) {
         throw 'Windhawk development tools are missing. Add Development tools in Windhawk, then run Setup again.'
     }
+    # Upgrades keep the portable Node copy that older Setup versions downloaded.
+    $node=Join-Path $InstallDir 'runtime\node\node.exe'
+    if(-not (Test-Path -LiteralPath $node -PathType Leaf)) { $node=@((Get-Command node.exe -ErrorAction SilentlyContinue).Source,"$env:ProgramFiles\nodejs\node.exe") | Where-Object { $_ -and (Test-Path -LiteralPath $_ -PathType Leaf) } | Select-Object -First 1 }
+    $nodeMajor=0
+    if($node) { $nodeMajor=& $node -p "Number(process.versions.node.split('.')[0])"; if($LASTEXITCODE -ne 0) { $nodeMajor=0 } }
+    if([int]$nodeMajor -lt 22) { throw 'Node.js 22 or newer was not found. Install it from https://nodejs.org/dist/v26.13.1/node-v26.13.1-x64.msi, then run Setup again.' }
     if(Test-Path -LiteralPath $InstallDir) {
         $marker=Join-Path $InstallDir 'installation.json'
         $partial=Join-Path $InstallDir '.installing'
@@ -59,41 +56,6 @@ try {
     }
     New-Item -ItemType Directory -Force -Path $InstallDir | Out-Null
     Set-Content -LiteralPath (Join-Path $InstallDir '.installing') -Value 'spotify-audio-speed'
-    Write-Host 'Checking Node.js...'
-    $node=Join-Path $InstallDir 'runtime\node\node.exe'
-    if(-not (Test-Path -LiteralPath $node -PathType Leaf)) { $command=Get-Command node.exe -ErrorAction SilentlyContinue;$node=$command.Source }
-    $nodeMajor=0
-    if($node) { $nodeMajor=& $node -p "Number(process.versions.node.split('.')[0])"; if($LASTEXITCODE -ne 0) { $nodeMajor=0 } }
-    if([int]$nodeMajor -lt 22) {
-        Write-Host 'Downloading portable Node.js LTS from nodejs.org (no system installation).'
-        $nodeRelease=(Invoke-RestMethod 'https://nodejs.org/dist/index.json') | Where-Object { $_.lts -and [version]$_.version.TrimStart('v') -ge [version]'22.0.0' } | Select-Object -First 1
-        if(-not $nodeRelease -or $nodeRelease.version -notmatch '^v\d+\.\d+\.\d+$') { throw 'Could not select a supported Node.js LTS release.' }
-        $name='node-'+$nodeRelease.version+'-win-x64'
-        $base='https://nodejs.org/dist/'+$nodeRelease.version
-        $downloadDir=Join-Path ([IO.Path]::GetTempPath()) ('spotify-speed-'+[guid]::NewGuid())
-        New-Item -ItemType Directory -Path $downloadDir | Out-Null
-        $archive=Join-Path $downloadDir ($name+'.zip')
-        Download ($base+'/'+$name+'.zip') $archive
-        $checksums=(Invoke-WebRequest -UseBasicParsing ($base+'/SHASUMS256.txt')).Content
-        $line=@($checksums -split "`n" | Where-Object { $_.Trim().EndsWith('  '+$name+'.zip') })
-        if($line.Count -ne 1) { throw 'Node.js checksum was not found.' }
-        Check-Hash $archive (($line[0] -split '\s+')[0])
-        $nodeFolder=Join-Path $InstallDir 'runtime\node'
-        New-Item -ItemType Directory -Force -Path $nodeFolder | Out-Null
-        # Only Node itself and its license are needed; npm is not used.
-        Add-Type -AssemblyName System.IO.Compression.FileSystem
-        $zip=[IO.Compression.ZipFile]::OpenRead($archive)
-        try {
-            foreach($file in @('node.exe','LICENSE')) {
-                $entry=$zip.GetEntry($name+'/'+$file)
-                if(-not $entry) { throw "The Node.js archive is missing $file." }
-                [IO.Compression.ZipFileExtensions]::ExtractToFile($entry,(Join-Path $nodeFolder $file),$true)
-            }
-        } finally { $zip.Dispose() }
-        $node=Join-Path $nodeFolder 'node.exe'
-    }
-    $nodeMajor=& $node -p "Number(process.versions.node.split('.')[0])"
-    if($LASTEXITCODE -ne 0 -or [int]$nodeMajor -lt 22) { throw 'Node.js could not start. Setup stopped before changing the mod.' }
     Write-Host 'Installing the speed control...'
     $installedHelper=Join-Path $InstallDir 'keep-speed-control.mjs'
     Get-CimInstance Win32_Process -Filter "name='node.exe'" | Where-Object { $_.CommandLine -and $_.CommandLine.Contains($installedHelper) } | ForEach-Object { Stop-Process -Id $_.ProcessId }

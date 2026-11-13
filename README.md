@@ -17,11 +17,14 @@ Speed and pitch control for the Spotify Windows desktop app.
 
 ## Install
 
-1. Install **Windhawk 2**: download `windhawk_setup.exe` from the newest 2.x release on [Windhawk's GitHub](https://github.com/ramensoftware/windhawk/releases) and include **Development tools** in its installer. (windhawk.net still offers 1.x, which won't work.)
-2. Open [Releases](https://github.com/vibran2566/spotify-playback-speed/releases), download the `.zip` under **Assets** of the newest release, and extract it.
-3. Double-click **Setup.cmd**. If Windows shows a SmartScreen warning, click **More info → Run anyway**.
-4. Approve Windows' administrator permission request for the Windhawk mod, if shown.
-5. Open **Spotify Playback Speed** from your desktop or Start menu.
+1. Install **Windhawk 2**: [download windhawk_setup.exe](https://github.com/ramensoftware/windhawk/releases/download/2.0.0-alpha.8/windhawk_setup.exe) and include **Development tools** in its installer. (windhawk.net still offers 1.x, which won't work.)
+2. Install **Node.js**: [download the Node.js installer](https://nodejs.org/dist/v26.13.1/node-v26.13.1-x64.msi) and click through it with the default options. Skip this if you already have Node.js 22 or newer.
+3. Open [Releases](https://github.com/vibran2566/spotify-playback-speed/releases), download the `.zip` under **Assets** of the newest release, and extract it.
+4. Double-click **Setup.cmd**. If Windows shows a SmartScreen warning, click **More info → Run anyway**.
+5. Approve Windows' administrator permission request for the Windhawk mod, if shown.
+6. Open **Spotify Playback Speed** from your desktop or Start menu.
+
+Setup doesn't download anything. It only copies its files, adds the mod to Windhawk and creates the shortcuts.
 
 Start playback, then click the speed button just left of **Lyrics**.
 
@@ -50,7 +53,7 @@ Run setup from PowerShell with explicit paths:
 
 - Windows x64 with the Spotify desktop app
 - [Windhawk 2](https://github.com/ramensoftware/windhawk/releases) with Development tools
-- Node.js 22+. If it isn't installed, Setup downloads a portable copy from nodejs.org and checks its checksum.
+- [Node.js](https://nodejs.org/) 22 or newer
 
 ## Known limits
 
@@ -108,16 +111,16 @@ Go back to 1x and open an issue with your Spotify version, Windows version, audi
 <summary><b>Setup can't find Windhawk 2 or its development tools</b></summary>
 <br>
 
-Install Windhawk 2 from its [GitHub releases](https://github.com/ramensoftware/windhawk/releases), not 1.x from windhawk.net. If it's already installed, add **Development tools** in Windhawk, then run Setup again.
+[Install Windhawk 2](https://github.com/ramensoftware/windhawk/releases/download/2.0.0-alpha.8/windhawk_setup.exe), not 1.x from windhawk.net. If it's already installed, add **Development tools** in Windhawk, then run Setup again.
 
 </details>
 <br>
 
 <details>
-<summary><b>Setup can't download Node.js</b></summary>
+<summary><b>Setup says Node.js wasn't found</b></summary>
 <br>
 
-Check your internet connection, or install Node.js 22+ yourself, then run Setup again.
+[Install Node.js](https://nodejs.org/dist/v26.13.1/node-v26.13.1-x64.msi), then run Setup again. If you just installed it, close the Setup window first so it sees the new install.
 
 </details>
 
