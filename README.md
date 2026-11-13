@@ -58,12 +58,6 @@ Then fully close Spotify and reopen it using its ordinary shortcut to remove the
 - **Setup cannot download dependencies:** check your internet connection, or install Windhawk 2 with Development tools and Node.js 22+ manually, then rerun Setup.
 - **An organization blocks PowerShell scripts:** follow your organization's policy; Setup does not override managed restrictions.
 
-## How it works
-
-The Windhawk mod hooks Spotify's Windows shared audio client, enables `AUDCLNT_STREAMFLAGS_RATEADJUST`, and performs `IAudioClockAdjustment::SetSampleRate` calls on a COM worker thread. A small HTTP bridge accepts only speed operations on loopback, validating Host, browser Origin, method, route and integer range. There is no authentication for other local software.
-
-The Node helper connects to Spotify's local debugger and injects `speed-control.js`. It restores the UI across page reloads without native CEF hooks. The mod applies to the main Spotify process and stores the selected percentage through Windhawk.
-
 Background: [Microsoft IAudioClockAdjustment](https://learn.microsoft.com/en-us/windows/win32/api/audioclient/nn-audioclient-iaudioclockadjustment). The project started from investigating [WMPotify](https://github.com/Ingan121/WMPotify); this package uses a Windows audio approach rather than its internal Spotify player hooks.
 
 ## License
