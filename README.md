@@ -2,16 +2,11 @@
 
 Experimental speed and pitch control for the Spotify Windows desktop app. A button next to Lyrics opens a **0.50x–2.00x** slider with a **1x reset**. Changes apply live after initial setup.
 
-**Status: experimental alpha.** Playback compatibility has been verified on Windows 11 x64 with Spotify 1.3.8.620 and Windhawk 2.0-alpha.8. A full installation on a second PC is not yet verified.
-
 ## Known limits
 
-- Speed and pitch change together. This does not preserve pitch.
 - **Progress bar timing and synchronized lyric scrolling do not account for the changed speed yet.**
 - Spotify updates may break the button placement or audio integration. Only the version above has been exercised.
 - The audio buffer is increased to 250 ms, which adds latency. Other audio devices, full-range listening, sleep/wake, and reboot recovery are not verified.
-- Shared-mode audio only; exclusive-mode streams are left alone.
-- The UI uses Spotify's local Chromium debugger. The launcher requests loopback binding on port 9222; the speed bridge binds to 127.0.0.1:8758. The debugger exposes more than speed control to local software. Do not expose either port to your network.
 - The helper remains running while Spotify is closed. Use this project's launcher when reopening Spotify so the control can return.
 
 This is an independent project, not affiliated with Spotify. No Spotify application files, recordings, or proprietary binaries are distributed.
@@ -19,9 +14,8 @@ This is an independent project, not affiliated with Spotify. No Spotify applicat
 ## Requirements
 
 - Windows x64 with Spotify desktop installed.
-- Internet access during setup if dependencies are missing.
 
-Setup reuses [Windhawk](https://windhawk.net/) 2.x and Node.js 22+ when available. Otherwise it opens the official Windhawk 2 installer and downloads a portable Node.js LTS runtime from nodejs.org. Windhawk 2 is currently a preview; include **Development tools** in its installer. Downloaded dependencies are checked against their publishers' SHA256 digests before use. No npm installation is needed.
+Setup reuses [Windhawk](https://windhawk.net/) 2.x and Node.js 22+ when available.
 
 ## Install and start
 
@@ -30,7 +24,6 @@ Setup reuses [Windhawk](https://windhawk.net/) 2.x and Node.js 22+ when availabl
 3. If Windhawk's installer opens, finish its wizard with **Development tools** included.
 4. Open **Spotify Speed** from your desktop or Start menu.
 
-Setup finds Spotify and Windhawk, compiles/enables the mod, and creates the shortcuts. It installs the project to `%LOCALAPPDATA%\Programs\Spotify Audio Speed`, so you can delete the extracted download afterward. The first launch after setup may restart Spotify once; slider adjustments then apply live.
 
 Start playback, then click the speed button immediately left of Lyrics. The **1x** button resets the rate. Windhawk is started automatically when needed. Startup failures display an error message.
 
