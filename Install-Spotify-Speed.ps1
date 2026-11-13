@@ -6,7 +6,7 @@ param(
 )
 $ErrorActionPreference='Stop'
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
-$files=@('Start-Spotify-Speed.ps1','keep-speed-control.mjs','speed-control.js','spotify-audio-speed.wh.cpp','Uninstall-Spotify-Speed.ps1','LICENSE','README.md')
+$files=@('Start-Spotify-Speed.ps1','keep-speed-control.mjs','speed-control.js','spotify-audio-speed.wh.cpp','Uninstall-Spotify-Speed.ps1','Windhawk-Operations.ps1','LICENSE','README.md')
 
 function Find-Windhawk {
     $command=Get-Command windhawk-cli.exe -ErrorAction SilentlyContinue
@@ -106,10 +106,8 @@ try {
         $from=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot $file));$to=[IO.Path]::GetFullPath((Join-Path $InstallDir $file))
         if($from -ne $to) { Copy-Item -LiteralPath $from -Destination $to -Force }
     }
-    & $cli mod install --file (Join-Path $InstallDir 'spotify-audio-speed.wh.cpp') --disabled
-    if($LASTEXITCODE -ne 0) { throw 'Windhawk could not compile/install the mod. Check its Development tools and the error above.' }
-    & $cli mod enable local@spotify-audio-speed
-    if($LASTEXITCODE -ne 0) { throw 'Windhawk could not enable the mod. Open Windhawk and enable Spotify Audio Speed.' }
+    . (Join-Path $InstallDir 'Windhawk-Operations.ps1')
+    Invoke-SpotifyWindhawk -Action Install -CliPath $cli -SourceFile (Join-Path $InstallDir 'spotify-audio-speed.wh.cpp')
     @{appId='spotify-audio-speed';nodePath=$node;windhawkCli=$cli;spotifyPath=$SpotifyPath;needsRestart=$true} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $InstallDir 'installation.json') -Encoding UTF8
     $shell=New-Object -ComObject WScript.Shell
     $powershell=Join-Path $env:SystemRoot 'System32\WindowsPowerShell\v1.0\powershell.exe'

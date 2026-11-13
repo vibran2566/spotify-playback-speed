@@ -20,9 +20,12 @@ Speed and pitch control for the Spotify Windows desktop app.
 1. [Download the ZIP](https://github.com/vibran2566/spotify-audio-speed/archive/refs/heads/main.zip) and extract it.
 2. Double-click **Setup.cmd**.
 3. If Windhawk's installer opens, finish it with **Development tools** included.
-4. Open **Spotify Speed** from your desktop or Start menu.
+4. Approve Windows' administrator permission request for the Windhawk mod, if shown.
+5. Open **Spotify Speed** from your desktop or Start menu.
 
 Start playback, then click the speed button just left of **Lyrics**.
+
+Setup stays in your user account. With a standard Windhawk installation, only the mod operation requests administrator permission. Portable Windhawk installations run without elevation. If you cancel the permission request, Setup reports the failure and can be run again.
 
 > [!TIP]
 > **To update**, download a new ZIP and run Setup again. Your speed setting is kept.
@@ -55,6 +58,8 @@ Run setup from PowerShell with explicit paths:
 ## Uninstall
 
 Remove **Spotify Playback Speed** from Windows' installed apps. This stops all helpers. Spotify and Windhawk stay installed. Then fully close and reopen Spotify.
+
+Standard Windhawk installations may request administrator permission to remove the mod. If Windhawk or the mod was already removed, app cleanup still finishes. Cancelling an administrator request leaves the app registered so you can retry removal.
 
 To turn it off temporarily, disable **Spotify Playback Speed** in Windhawk.
 
