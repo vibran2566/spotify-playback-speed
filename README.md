@@ -18,7 +18,7 @@ Speed and pitch control for the Spotify Windows desktop app.
 ## Install
 
 1. Open [Releases](https://github.com/vibran2566/spotify-playback-speed/releases), download the `.zip` under **Assets** of the newest release, and extract it.
-2. Double-click **Setup.cmd**.
+2. Double-click **Setup.cmd**. If Windows shows a SmartScreen warning, click **More info → Run anyway**.
 3. If Windhawk's installer opens, finish it with **Development tools** included.
 4. Approve Windows' administrator permission request for the Windhawk mod, if shown.
 5. Open **Spotify Playback Speed** from your desktop or Start menu.
