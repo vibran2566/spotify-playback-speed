@@ -19,13 +19,21 @@ Speed and pitch control for the Spotify Windows desktop app, as a single [Windha
 
 Nothing to download or run. You paste one file into Windhawk, which compiles it.
 
-1. Install **Windhawk 2**: [download windhawk_setup.exe](https://github.com/ramensoftware/windhawk/releases/download/2.0.0-alpha.8/windhawk_setup.exe). windhawk.net still offers 1.x, which won't work.
-2. Open [spotify-playback-speed.wh.cpp](spotify-playback-speed.wh.cpp) and click **Copy raw file** (the copy icon above the code).
-3. In Windhawk, click **Create a new mod**. If it asks for development tools, click **Install development tools** first.
-4. Select all of the example code, paste over it, then click **Compile mod** and **Exit editing mode**.
-5. Fully close Spotify (including its tray icon) and open it again.
+**1. Install Windhawk 2.** [Download windhawk_setup.exe](https://github.com/ramensoftware/windhawk/releases/download/2.0.0-alpha.8/windhawk_setup.exe) and run it. windhawk.net still offers 1.x, which won't work.
 
-The speed button appears just left of **Lyrics**.
+**2. Copy the mod.** Open [spotify-playback-speed.wh.cpp](spotify-playback-speed.wh.cpp) and click **Copy raw file**, the copy icon above the code.
+
+<img src="images/1-copy-raw-file.png" alt="GitHub file view with the Copy raw file button highlighted" width="700">
+
+**3. Create a new mod in Windhawk.** Click **Create a new mod** in the bottom-right corner. If Windhawk asks for development tools, click **Install development tools** first.
+
+<img src="images/2-create-new-mod.png" alt="Windhawk home screen with the Create a new mod button highlighted" width="700">
+
+**4. Paste and compile.** The editor opens with example code. Press **Ctrl+A**, then **Ctrl+V** to replace it with the mod. Click **Compile mod**, wait for it to finish, then click **Exit editing mode**.
+
+<img src="images/3-compile-mod.png" alt="Windhawk editor with the Compile mod button highlighted" width="700">
+
+**5. Restart Spotify.** Fully close it, including its tray icon, and open it again. The speed button appears just left of **Lyrics**.
 
 > [!TIP]
 > **To update**, open the mod in Windhawk, click **Edit**, paste the new version over the old code and click **Compile mod**. Then restart Spotify. Your speed setting is kept.
